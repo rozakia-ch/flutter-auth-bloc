@@ -35,39 +35,36 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         fontFamily: 'Nunito',
       ),
-      home: Scaffold(
-        body: BlocBuilder<AuthBloc, AuthState>(
-          cubit: authBloc,
-          builder: (_, state) {
-            if (state is AuthInitial) {
-              authBloc.add(AuthCheck());
-              return Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-            if (state is AuthFailed || state is LoginFailed) {
-              return LoginPage(authBloc: authBloc);
-            }
-            if (state is AuthHasToken || state is AuthData) {
-              return HomePage(authBloc: authBloc);
-            }
-
-            if (state is AuthLoading) {
-              return Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-            print(state);
-            return Center(
-              child: Text("GAK KENEK"),
+      home: BlocBuilder<AuthBloc, AuthState>(
+        cubit: authBloc,
+        builder: (_, state) {
+          if (state is AuthInitial) {
+            authBloc.add(AuthCheck());
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
-          },
-        ),
+          }
+          if (state is AuthFailed || state is LoginFailed) {
+            return LoginPage(authBloc: authBloc);
+          }
+          if (state is AuthHasToken || state is AuthData) {
+            return HomePage(authBloc: authBloc);
+          }
+
+          if (state is AuthLoading) {
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          return Center(
+            child: Text("GAK KENEK"),
+          );
+        },
       ),
       routes: routes,
     );

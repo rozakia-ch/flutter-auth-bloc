@@ -37,45 +37,47 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    return BlocBuilder<AuthBloc, AuthState>(
-        cubit: _authBloc,
-        // ignore: missing_return
-        builder: (context, state) {
-          if (state is AuthHasToken) {
-            _authBloc.add(GetDataWithToken(state.token));
-            return Container(width: 0.0, height: 0.0);
-          }
-          if (state is AuthData) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(28.0),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Colors.blue,
-                  Colors.lightBlueAccent,
-                ]),
-              ),
-              child: Column(
-                children: <Widget>[
-                  alucard,
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      state.name,
-                      style: TextStyle(fontSize: 28.0, color: Colors.white),
+    return Scaffold(
+      body: BlocBuilder<AuthBloc, AuthState>(
+          cubit: _authBloc,
+          // ignore: missing_return
+          builder: (context, state) {
+            if (state is AuthHasToken) {
+              _authBloc.add(GetDataWithToken(state.token));
+              return Container(width: 0.0, height: 0.0);
+            }
+            if (state is AuthData) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(28.0),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    Colors.blue,
+                    Colors.lightBlueAccent,
+                  ]),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    alucard,
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        state.name,
+                        style: TextStyle(fontSize: 28.0, color: Colors.white),
+                      ),
                     ),
-                  ),
-                  lorem,
-                  RaisedButton(
-                    onPressed: () {
-                      _authBloc.add(LoggedOut());
-                    },
-                    child: Text("Logout"),
-                  )
-                ],
-              ),
-            );
-          }
-        });
+                    lorem,
+                    RaisedButton(
+                      onPressed: () {
+                        _authBloc.add(LoggedOut());
+                      },
+                      child: Text("Logout"),
+                    )
+                  ],
+                ),
+              );
+            }
+          }),
+    );
   }
 }

@@ -31,12 +31,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user = await authRepository.getUser(event.token);
         yield AuthData(email: user.email, name: user.name);
-      } catch (e) {
-       
-      }
+      } catch (e) {}
     }
     if (event is LoginProcess) {
-      yield AuthLoading();
+      // yield AuthLoading();
       try {
         final login = await authRepository.loginUser(
             event.email, event.password, "Mobile");
@@ -47,9 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           yield LoginFailed(login.message);
         }
-      } catch (e) {
-        yield LoginFailed(e);
-      }
+      } catch (e) {}
     }
     if (event is LoggedOut) {
       final String token = await authRepository.hasToken();
@@ -59,8 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await authRepository.unsetLocalToken();
           yield AuthFailed();
         }
-      } catch (e) {
-      }
+      } catch (e) {}
     }
   }
 }

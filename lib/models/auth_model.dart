@@ -1,11 +1,11 @@
 class AuthLogin {
   bool success;
-  String message;
+  var message;
   AuthToken data;
   AuthLogin({this.message, this.data});
   AuthLogin.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    message = json['message'].toString();
+    message = json['message'];
     data = AuthToken.fromJson(json['data']);
   }
 }

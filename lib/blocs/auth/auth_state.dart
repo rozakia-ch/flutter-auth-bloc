@@ -32,8 +32,9 @@ class LoginInit extends AuthState {}
 
 class LoginSuccess extends AuthState {}
 
+// ignore: must_be_immutable
 class LoginFailed extends AuthState {
-  final String error;
+  var error;
 
   LoginFailed(this.error);
   @override

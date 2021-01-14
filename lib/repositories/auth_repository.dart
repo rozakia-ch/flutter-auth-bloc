@@ -16,7 +16,6 @@ class AuthRepository {
           'device_name': device,
         },
       );
-
       var jsonRes = json.decode(res.body);
       return AuthLogin.fromJson(jsonRes);
     } catch (e) {
