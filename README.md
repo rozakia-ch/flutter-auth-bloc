@@ -1,4 +1,4 @@
-# flutter_login_bloc
+# flutter_auth_bloc
 
 Flutter project state management bloc 6.*.
 Login, Logout, Register 
