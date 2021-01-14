@@ -1,6 +1,6 @@
 # flutter_login_bloc
 
-A new Flutter project.
+Flutter project state management bloc 6.*.
 
 ## Getting Started
 
