@@ -29,3 +29,19 @@ class LoginProcess extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+class RegisterProcess extends AuthEvent {
+  final String name;
+  final String email;
+  final String password;
+  final String retypePassword;
+
+  RegisterProcess({
+    this.name,
+    this.email,
+    this.password,
+    this.retypePassword,
+  });
+  @override
+  List<Object> get props => [name, email, password, retypePassword];
+}

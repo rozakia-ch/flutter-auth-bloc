@@ -24,10 +24,6 @@ class MyApp extends StatelessWidget {
   const MyApp({Key key, this.authRepository, this.authBloc}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final routes = <String, WidgetBuilder>{
-      LoginPage.tag: (context) => LoginPage(),
-      HomePage.tag: (context) => HomePage(),
-    };
     return MaterialApp(
       title: 'Kodeversitas',
       debugShowCheckedModeBanner: false,
@@ -66,7 +62,6 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
-      routes: routes,
     );
   }
 }

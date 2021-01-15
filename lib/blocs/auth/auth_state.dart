@@ -40,3 +40,14 @@ class LoginFailed extends AuthState {
   @override
   List<Object> get props => [error];
 }
+
+class RegisterSuccess extends AuthState {}
+
+// ignore: must_be_immutable
+class RegisterFailed extends AuthState {
+  var error;
+
+  RegisterFailed(this.error);
+  @override
+  List<Object> get props => [error];
+}

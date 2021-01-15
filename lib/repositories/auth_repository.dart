@@ -6,6 +6,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 String apiURL = "http://api.midodaren.com/api/";
 
 class AuthRepository {
+  Future registerUser(String _name, String _email, String _password,
+      String _retypePassword) async {
+    try {
+      var res = await http.post(
+        apiURL + "register",
+        body: {
+          'name': _name,
+          'email': _email,
+          'password': _password,
+          'password_confirmation': _retypePassword
+        },
+      );
+      var jsonRes = json.decode(res.body);
+      return AuthLogin.fromJson(jsonRes);
+    } catch (e) {
+      return e;
+    }
+  }
+
   Future loginUser(String _email, String _password, String device) async {
     try {
       var res = await http.post(

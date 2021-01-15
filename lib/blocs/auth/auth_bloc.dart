@@ -48,12 +48,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {}
     }
     if (event is LoggedOut) {
+      yield AuthLoading();
       final String token = await authRepository.hasToken();
       try {
         final logout = await authRepository.logoutUser(token);
         if (logout.success) {
           await authRepository.unsetLocalToken();
           yield AuthFailed();
+        }
+      } catch (e) {}
+    }
+    if (event is RegisterProcess) {
+      yield AuthLoading();
+      try {
+        final register = await authRepository.registerUser(
+            event.name, event.email, event.password, event.retypePassword);
+        if (register.success) {
+          yield RegisterSuccess();
+          await authRepository.setLocalToken(register.data.token);
+          yield AuthHasToken(token: register.data.token);
+        } else {
+          yield RegisterFailed(register.message);
         }
       } catch (e) {}
     }
