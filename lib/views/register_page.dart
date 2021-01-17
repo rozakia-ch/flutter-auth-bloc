@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login_bloc/blocs/auth/auth_bloc.dart';
 import 'package:flutter_login_bloc/views/home_page.dart';
-import 'package:flutter_login_bloc/views/login_page.dart';
 import 'package:flutter_login_bloc/views/widgets/button_widget.dart';
 import 'package:flutter_login_bloc/views/widgets/logo_widget.dart';
 import 'package:flutter_login_bloc/views/widgets/textformfield_widget.dart';
