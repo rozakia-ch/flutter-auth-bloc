@@ -9,9 +9,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
-  AuthBloc({this.authRepository})
-      : assert(authRepository != null),
-        super(AuthInitial());
+  AuthBloc({required this.authRepository}) : super(AuthInitial());
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
@@ -49,7 +47,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     if (event is LoggedOut) {
       yield AuthLoading();
-      final String token = await authRepository.hasToken();
+      final String? token =
+          await (authRepository.hasToken() as FutureOr<String?>);
       try {
         final logout = await authRepository.logoutUser(token);
         if (logout.success) {

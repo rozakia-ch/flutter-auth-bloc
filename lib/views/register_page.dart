@@ -8,9 +8,8 @@ import 'package:flutter_login_bloc/views/widgets/textformfield_widget.dart';
 
 class Register extends StatefulWidget {
   static String tag = 'register-page';
-  final AuthBloc authBloc;
 
-  const Register({Key key, this.authBloc}) : super(key: key);
+  const Register({Key? key}) : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -21,16 +20,16 @@ class _RegisterState extends State<Register> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmationController = TextEditingController();
-  AuthBloc get _authBloc => widget.authBloc;
+
   bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
+    final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
-        cubit: _authBloc,
         builder: (context, state) {
           if (state is AuthHasToken || state is AuthData) {
-            return HomePage(authBloc: _authBloc);
+            return HomePage();
           }
           return Center(
             child: Stack(

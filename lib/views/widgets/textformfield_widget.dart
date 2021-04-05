@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-  final String errorText, hintText;
+  final String? errorText, hintText;
   final bool obsecureText;
-  final TextEditingController controller;
-  final IconButton suffixIcon;
+  final TextEditingController? controller;
+  final IconButton? suffixIcon;
   const TextFormFieldWidget({
-    Key key,
+    Key? key,
     this.errorText,
     this.hintText,
     this.obsecureText = false,

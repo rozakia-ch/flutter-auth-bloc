@@ -8,24 +8,22 @@ import 'package:flutter_login_bloc/views/widgets/textformfield_widget.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
-  final AuthBloc authBloc;
 
-  const LoginPage({Key key, this.authBloc}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  AuthBloc get _authBloc => widget.authBloc;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _showPassword = false;
 
   @override
   Widget build(BuildContext context) {
+    final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
-        cubit: _authBloc,
         builder: (context, state) => Center(
           child: ListView(
             shrinkWrap: true,
@@ -79,14 +77,14 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   'Forgot password?',
                   style: TextStyle(color: Colors.black54),
                 ),
                 onPressed: () {},
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   'Create new account',
                   style: TextStyle(color: Colors.lightBlueAccent),
@@ -95,9 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Register(
-                        authBloc: _authBloc,
-                      ),
+                      builder: (context) => Register(),
                     ),
                   );
                 },

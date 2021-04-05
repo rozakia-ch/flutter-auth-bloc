@@ -1,7 +1,7 @@
 class AuthLogin {
-  bool success;
+  bool? success;
   var message;
-  AuthToken data;
+  AuthToken? data;
   AuthLogin({this.message, this.data});
   AuthLogin.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -11,18 +11,18 @@ class AuthLogin {
 }
 
 class AuthToken {
-  String token;
+  String? token;
   AuthToken({this.token});
-  AuthToken.fromJson(Map<String, dynamic> data) {
+  AuthToken.fromJson(Map<String, dynamic>? data) {
     token = (data != null) ? data['token'] : null;
   }
 }
 
 class AuthUser {
-  String name;
-  String email;
+  String? name;
+  String? email;
   AuthUser({this.name, this.email});
-  AuthUser.fromJson(Map<String, dynamic> data) {
+  AuthUser.fromJson(Map<String, dynamic>? data) {
     if (data != null) {
       name = data['data']['name'];
       email = data['data']['email'];
@@ -34,8 +34,8 @@ class AuthUser {
 }
 
 class AuthLogout {
-  bool success;
-  String message;
+  bool? success;
+  String? message;
   AuthLogout({this.message});
   AuthLogout.fromJson(Map<String, dynamic> data) {
     message = data['message'];

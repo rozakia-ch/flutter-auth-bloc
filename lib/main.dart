@@ -11,19 +11,15 @@ void main() {
     create: (context) {
       return AuthBloc(authRepository: authRepository);
     },
-    child: MyApp(
-        authRepository: authRepository,
-        authBloc: AuthBloc(authRepository: authRepository)),
+    child: MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final AuthRepository authRepository;
-  final AuthBloc authBloc;
-
-  const MyApp({Key key, this.authRepository, this.authBloc}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
     return MaterialApp(
       title: 'Kodeversitas',
       debugShowCheckedModeBanner: false,
@@ -32,7 +28,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
       ),
       home: BlocBuilder<AuthBloc, AuthState>(
-        cubit: authBloc,
         builder: (_, state) {
           if (state is AuthInitial) {
             authBloc.add(AuthCheck());
@@ -43,10 +38,10 @@ class MyApp extends StatelessWidget {
             );
           }
           if (state is AuthFailed || state is LoginFailed) {
-            return LoginPage(authBloc: authBloc);
+            return LoginPage();
           }
           if (state is AuthHasToken || state is AuthData) {
-            return HomePage(authBloc: authBloc);
+            return HomePage();
           }
 
           if (state is AuthLoading) {

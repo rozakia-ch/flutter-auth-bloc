@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login_bloc/blocs/auth/auth_bloc.dart';
-import 'package:flutter_login_bloc/repositories/auth_repository.dart';
 import 'package:flutter_login_bloc/views/widgets/button_widget.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
-  final AuthBloc authBloc;
 
-  const HomePage({Key key, this.authBloc}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final AuthRepository authRepository = AuthRepository();
-  AuthBloc get _authBloc => widget.authBloc;
   @override
   Widget build(BuildContext context) {
+    final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     final alucard = Hero(
       tag: 'hero',
       child: Padding(
@@ -40,7 +37,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
-        cubit: _authBloc,
         // ignore: missing_return
         builder: (context, state) {
           if (state is AuthHasToken) {
@@ -63,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      state.name,
+                      (state.name)!,
                       style: TextStyle(fontSize: 28.0, color: Colors.white),
                     ),
                   ),
@@ -79,6 +75,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
+          return Container();
         },
       ),
     );

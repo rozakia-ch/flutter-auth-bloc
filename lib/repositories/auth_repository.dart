@@ -3,14 +3,14 @@ import 'package:flutter_login_bloc/models/auth_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-String apiURL = "http://api.midodaren.com/api/";
+String apiURL = "http://YourAPI";
 
 class AuthRepository {
-  Future registerUser(String _name, String _email, String _password,
-      String _retypePassword) async {
+  Future registerUser(String? _name, String? _email, String? _password,
+      String? _retypePassword) async {
     try {
       var res = await http.post(
-        apiURL + "register",
+        Uri.http(apiURL, "/register"),
         body: {
           'name': _name,
           'email': _email,
@@ -25,10 +25,10 @@ class AuthRepository {
     }
   }
 
-  Future loginUser(String _email, String _password, String device) async {
+  Future loginUser(String? _email, String? _password, String device) async {
     try {
       var res = await http.post(
-        apiURL + "login",
+        Uri.http(apiURL, "/login"),
         body: {
           'email': _email,
           'password': _password,
@@ -42,9 +42,9 @@ class AuthRepository {
     }
   }
 
-  Future logoutUser(String token) async {
+  Future logoutUser(String? token) async {
     try {
-      var res = await http.get(apiURL + "logout", headers: {
+      var res = await http.get(Uri.http(apiURL, "/logout"), headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
@@ -56,9 +56,9 @@ class AuthRepository {
     }
   }
 
-  Future getUser(String token) async {
+  Future getUser(String? token) async {
     try {
-      var res = await http.get(apiURL + "profile", headers: {
+      var res = await http.get(Uri.http(apiURL, "profile"), headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
@@ -73,7 +73,7 @@ class AuthRepository {
   Future hasToken() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences local = await _prefs;
-    final String token = local.getString("token");
+    final String? token = local.getString("token");
     if (token != null) return token;
     return null;
   }
